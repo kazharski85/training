@@ -1,0 +1,7 @@
+<p>User {{user?.firstName}}, {{user?.lastName}}</p>
+<p>Age: {{user?.age}}</p>
+<p>Status: {{user?.activated ? "Activated":"Deactivated"}}</p>
+<p>Gender: {{user?.gender}}</p>
+<button (click)="onActivatedButtonClick()">{{!user?.activated ? "Activate":"Deactivate"}}</button>
+<p></p>
+<button (click)="onDeleteButtonClick()">Delete</button>
