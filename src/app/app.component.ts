@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { UseListViewComponentComponent } from "./components/use-list-view-component/use-list-view-component.component";
+import { UseListViewComponent } from "./components/use-list-view/use-list-view.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, UseListViewComponentComponent],
+  imports: [RouterOutlet, UseListViewComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

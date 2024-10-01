@@ -1,15 +1,21 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { User } from '../../interfaces/user.interface';
-import { UserCardComponentComponent } from "../user-card-component/user-card-component.component";
+import { UserCardComponent } from "../user-card/user-card.component";
+import { CommonModule } from '@angular/common';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { HighlightDirective } from '../user-list-main/highlight.directive';
+
 
 @Component({
   selector: 'app-user-list-main-component',
   standalone: true,
-  imports: [UserCardComponentComponent],
-  templateUrl: './user-list-main-component.component.html',
-  styleUrl: './user-list-main-component.component.scss'
+  imports: [UserCardComponent, CommonModule, MatCheckboxModule, HighlightDirective],
+  templateUrl: './user-list-main.component.html',
+  styleUrl: './user-list-main.component.scss'
 })
-export class UserListMainComponentComponent {
+export class UserListMainComponent {
+  public isChecked: boolean = false;
+
   @Input() users!: User[];
   @Output() statusChanged: EventEmitter<number> = new EventEmitter<number>();
   @Output() deleteButtonClick: EventEmitter<number> = new EventEmitter<number>();
