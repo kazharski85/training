@@ -1,7 +1,4 @@
-<span #ref><ng-content></ng-content></span>
-<span *ngIf="!ref.innerHTML.trim()">
-    <b>User</b>
-</span>
+<ng-content><b>User</b></ng-content>
 <p>User {{user.firstName}}, {{user.lastName}}</p>
 <p>Age: {{user.age}}</p>
 <p>Status: {{user.activated ? "Activated":"Deactivated"}}</p>
