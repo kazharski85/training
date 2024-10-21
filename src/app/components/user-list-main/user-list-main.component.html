@@ -3,9 +3,6 @@
     <div appHighlight [age]=user.age [maxAge]="maxAge" *ngIf="!act_only.checked || user.activated">
         <app-user-card-component [user]="user" (statusChangedChild)="onStatusChanged($event)"
             (deleteButtonClickChild)="onDeleteButtonClick($event)">
-            <div>
-                <p>User Details:</p>
-            </div>
         </app-user-card-component>
     </div>
 </ng-container>

@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { User } from '../../interfaces/user.interface';
 import { CommonModule } from '@angular/common';
+import { FullNamePipe } from "../../pipes/full-name.pipe";
 
 @Component({
   selector: 'app-user-card-component',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FullNamePipe],
   templateUrl: './user-card.component.html',
   styleUrl: './user-card.component.scss'
 })
