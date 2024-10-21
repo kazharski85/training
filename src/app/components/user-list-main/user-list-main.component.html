@@ -1,6 +1,6 @@
 <label><b>User list View Component</b></label>
 <ng-container *ngFor="let user of users">
-    <div [appHighlight]=user.age *ngIf="!act_only.checked || user.activated">
+    <div appHighlight [age]=user.age [maxAge]="maxAge" *ngIf="!act_only.checked || user.activated">
         <app-user-card-component [user]="user" (statusChangedChild)="onStatusChanged($event)"
             (deleteButtonClickChild)="onDeleteButtonClick($event)">
             <div>
@@ -10,3 +10,7 @@
     </div>
 </ng-container>
 <mat-checkbox #act_only>Show only activated users</mat-checkbox>
+<div>
+    <label>Max age:</label>
+    <input type="number" [(ngModel)]="maxAge">
+  </div>
