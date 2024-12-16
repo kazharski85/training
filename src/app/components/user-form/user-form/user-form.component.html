@@ -1,0 +1,65 @@
+<ng-container [formGroup]="userFormGroup">
+    <div>
+        <div>
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" formControlName="firstName">
+            <span *ngIf="firstNameControl.hasError('required')" class="error-message">Field is
+                required</span>
+        </div>
+        <div>
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" formControlName="lastName">
+            <span *ngIf="lastNameControl.hasError('required')" class="error-message">Field is
+                required</span>
+        </div>
+        <div>
+            <label for="age">Age</label>
+            <input type="number" name="age" formControlName="age">
+            <span *ngIf="ageControl.hasError('required')" class="error-message">Field is required</span>
+            <span *ngIf="ageControl.hasError('min')" class="error-message">Age should be more than
+                5</span>
+            <span *ngIf="ageControl.hasError('max')" class="error-message">Age should be less than
+                100</span>
+        </div>
+        <div>
+            <label for="company">Company</label>
+            <input type="text" name="company" formControlName="company">
+            <span *ngIf="companyControl.hasError('maxLength')" class="error-message">The length should be
+                no more than 35</span>
+
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="text" name="email" formControlName="email">
+            <span *ngIf="emailControl.hasError('required')" class="error-message">Field is
+                required</span>
+            <span *ngIf="emailControl.hasError('email')" class="error-message">Email should be in correct
+                format </span>
+            <span *ngIf="emailControl.hasError('gmailDomain')" class="error-message">Domain should be gmail.com</span>
+        </div>
+        <div>
+            <label for="department">Department</label>
+            <select id="department" formControlName="department">
+                <option *ngFor="let d of departments" [ngValue]="d">{{ d }}</option>
+            </select>
+        </div>
+        <div>
+            <label for="gender">Gender</label>
+            <div>
+                <input id="female" type="radio" name="gender" value="F" formControlName="gender">
+                <label for="female">Female</label>
+            </div>
+            <div>
+                <input id="male" type="radio" name="gender" value="M" formControlName="gender">
+                <label for="male">Male</label>
+            </div>
+            <span *ngIf="genderControl.hasError('required')" class="error-message">Field is
+                required</span>
+        </div>
+        <div>
+            <label for="activated">Activated</label>
+            <input type="checkbox" name="activated" formControlName="activated">
+        </div>
+    </div>
+</ng-container>
+<button (click)="saveUser()">Submit</button>
