@@ -45,4 +45,16 @@ export class UserFormComponent {
     }
   }
 
+  get firstNameControl(): FormControl { return this.userFormGroup.controls.firstName; }
+
+  get lastNameControl(): FormControl { return this.userFormGroup.controls.lastName; }
+
+  get ageControl(): FormControl { return this.userFormGroup.controls.age; }
+
+  get emailControl(): FormControl { return this.userFormGroup.controls.email; }
+
+  get companyControl(): FormControl { return this.userFormGroup.controls.company; }
+
+  get genderControl(): FormControl { return this.userFormGroup.controls.gender; }
+
 }

@@ -28,7 +28,7 @@ export class UserService {
 
   public addUser(user: User): void {
     user.dateOfCreation = new Date();
-    this.users.push(user);
+    this.users = [...this.users, user];
   }
 
 }
