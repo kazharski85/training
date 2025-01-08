@@ -1,0 +1,10 @@
+<ng-container [formGroup]="mainForm">
+    <ng-container formArrayName="addresses">
+        <ng-container *ngFor="let addressFormGroup of addresses.controls; let i = index">
+            <div>Address # {{ i + 1 }}</div>
+            <app-address-form [addressFormGroup]="addressFormGroup"></app-address-form>
+            <button *ngIf="addresses.controls.length > 1" (click)="removeAddress(i)">Remove Address</button>
+        </ng-container>
+    </ng-container>
+    <button (click)="addNewAddress()">Add new Address</button>
+</ng-container>

@@ -1,0 +1,16 @@
+<ng-container [formGroup]="addressFormGroup">
+    <div>
+        <label for="line">Line</label>
+        <textarea placeholder="line" formControlName="line"></textarea>
+        <span *ngIf="lineControl.hasError('required')" class="error-message">Field is
+            required</span>
+    </div>    
+    <div>
+        <label for="city">City</label>
+        <input type="text" name="city" formControlName="city">
+    </div>
+    <div>
+        <label for="zip">Zip</label>
+        <input type="text" name="zip" formControlName="zip">
+    </div>
+</ng-container>

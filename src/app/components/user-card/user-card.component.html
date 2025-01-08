@@ -5,6 +5,12 @@
 <p>Gender: {{user.gender}}</p>
 <p>Creation Date: {{user.dateOfCreation | date : "MM-dd-YYYY"}}</p>
 <p>Salary : {{user.salary | currency}}</p>
+<ng-container *ngFor="let addres of user.addresses; let i = index">
+    <div>Address # {{ i + 1 }}</div>
+    <p>Line: {{addres.line}}</p>
+    <p>City: {{addres.city}}</p>
+    <p>Zip: {{addres.zip}}</p>
+</ng-container>
 <button (click)="onActivatedButtonClick()">{{!user.activated ? "Activate":"Deactivate"}}</button>
 <p></p>
 <button (click)="onDeleteButtonClick()">Delete</button>

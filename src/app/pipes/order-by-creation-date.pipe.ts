@@ -8,7 +8,7 @@ import { User } from '../interfaces/user.interface';
 export class OrderByCreationDatePipe implements PipeTransform {
 
   transform(users: User[]): User[] {
-    return users.sort((a, b) => a.dateOfCreation.getTime() - b.dateOfCreation.getTime());
+    return users.sort((a, b) => b.dateOfCreation == null ? 1 : a.dateOfCreation == null ? -1 : a.dateOfCreation.getTime() - b.dateOfCreation.getTime());
   }
 
 }

@@ -60,6 +60,9 @@
             <label for="activated">Activated</label>
             <input type="checkbox" name="activated" formControlName="activated">
         </div>
+        <div>
+            <app-addresses-form [addressesFormArray]="addressArray"></app-addresses-form>
+        </div>
     </div>
 </ng-container>
 <button (click)="saveUser()">Submit</button>
