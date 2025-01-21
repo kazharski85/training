@@ -1,19 +1,33 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input} from '@angular/core';
-import { FormGroup, ReactiveFormsModule, FormArray, FormBuilder } from '@angular/forms';
+import { Component, OnInit, forwardRef } from '@angular/core';
+import {
+  ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormGroup,
+  Validator, AbstractControl, ValidationErrors, ReactiveFormsModule, FormArray, FormBuilder
+} from '@angular/forms';
 import { AddressForm } from '../../../../interfaces/forms';
-import { AddressFormComponent } from '../address-form/address-form.component';
 
 @Component({
   selector: 'app-addresses-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, AddressFormComponent],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './addresses-form.component.html',
-  styleUrl: './addresses-form.component.scss'
+  styleUrl: './addresses-form.component.scss',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => AddressesFormComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => AddressesFormComponent),
+      multi: true
+    }
+  ]
 })
-export class AddressesFormComponent {
+export class AddressesFormComponent implements OnInit, ControlValueAccessor, Validator {
   constructor(private readonly fb: FormBuilder) { }
-  @Input() public addressesFormArray: FormArray<FormGroup<AddressForm>> = new FormArray<FormGroup<AddressForm>>([]);
+  public addressesFormArray: FormArray<FormGroup<AddressForm>> = new FormArray<FormGroup<AddressForm>>([]);
 
   public mainForm: FormGroup<{ addresses: FormArray<FormGroup<AddressForm>> }> = new FormGroup({
     addresses: this.addressesFormArray
@@ -28,7 +42,7 @@ export class AddressesFormComponent {
   }
 
   public removeAddress(index: number): void {
-    this.addressesFormArray.removeAt(index); 
+    this.addressesFormArray.removeAt(index);
     this.mainForm.controls["addresses"] = this.addressesFormArray;
   }
 
@@ -39,6 +53,31 @@ export class AddressesFormComponent {
       zip: this.fb.control(''),
 
     })
+  }
+
+  ngOnInit() {
+  }
+
+  public onTouched: () => void = () => { };
+
+  writeValue(val: any): void {
+    val && this.mainForm.setValue(val, { emitEvent: false });
+  }
+  registerOnChange(fn: any): void {
+    console.log("on change");
+    this.mainForm.valueChanges.subscribe(fn);
+  }
+  registerOnTouched(fn: any): void {
+    console.log("on blur");
+    this.onTouched = fn;
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    isDisabled ? this.mainForm.disable() : this.mainForm.enable();
+  }
+
+  validate(c: AbstractControl): ValidationErrors | null {
+    console.log("Adress validation");
+    return this.mainForm.valid ? null : { invalidForm: { valid: false, message: "Address fields are invalid" } };
   }
 
 }

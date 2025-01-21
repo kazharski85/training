@@ -1,8 +1,9 @@
 <label><b>User list View Component</b></label>
 <ng-container *ngFor="let user of users">
     <div appHighlight [age]=user.age [maxAge]="maxAge" *ngIf="!act_only.checked || user.activated">
-        <app-user-card-component [user]="user" (statusChangedChild)="onStatusChanged($event)"
-            (deleteButtonClickChild)="onDeleteButtonClick($event)">
+        <app-user-card-component [user]="user" (statusChangedChild)="onStatusChanged(users.indexOf(user))"
+            (deleteButtonClickChild)="onDeleteButtonClick(users.indexOf(user))"
+            (editButtonClickChild)="onEditButtonClick(users.indexOf(user))">
         </app-user-card-component>
     </div>
 </ng-container>

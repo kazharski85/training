@@ -29,9 +29,14 @@ export class UserService {
   }
   ];
 
-  public addUser(user: User): void {
-    user.dateOfCreation = new Date();
-    this.users = [...this.users, user];
+  public submitUser(user: User, id: number | null): void {
+    if (id == null) {
+      user.dateOfCreation = new Date();
+      this.users = [...this.users, user];
+    }
+    else {
+      this.users = [...this.users.slice(0, id), user, ...this.users.slice(id + 1)];
+    }
   }
 
 }

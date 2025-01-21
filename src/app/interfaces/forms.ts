@@ -10,7 +10,7 @@ export interface UserForm {
     department: FormControl<string | null>,
     gender: FormControl<Gender | null>,
     activated: FormControl<boolean | null>,
-    addresses: FormGroup<{ addresses: FormArray<FormGroup<AddressForm>> }>,
+    addresses: FormControl,
 }
 
 export interface AddressForm {

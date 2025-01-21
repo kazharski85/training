@@ -5,4 +5,5 @@ import { UseListViewComponent } from './components/use-list-view/use-list-view.c
 export const routes: Routes = [
     { path: 'list', component: UseListViewComponent },
     { path: 'add-new-user', component: UserFormComponent },
+    { path: 'edit-user/:userId', component: UserFormComponent },
 ];

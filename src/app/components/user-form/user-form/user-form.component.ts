@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { Address, Gender, User } from '../../../interfaces/user.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddressesFormComponent } from '../address-form/addresses-form/addresses-form.component';
 import { AddressForm, UserForm } from '../../../interfaces/forms';
+import { takeWhile } from 'rxjs';
 
 function gmailDomainValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -22,11 +23,22 @@ function gmailDomainValidator(): ValidatorFn {
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.scss'
 })
-export class UserFormComponent {
+export class UserFormComponent implements OnInit{
+  public userId: number | null = null
+  private componentActive: boolean = true;
   constructor(private userService: UserService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute) { 
+      this.route.paramMap
+            .pipe(takeWhile(_ => this.componentActive))
+            .subscribe(routeParams => this.userId = routeParams.get('userId') as number | null)
+    }
 
+    ngOnInit() {
+      if (this.userId != null) {
+        this.userFormGroup.patchValue(this.userService.users[this.userId])
+      }
+    }
 
   departments: string[] = ['FE', 'BE', 'Mobile', 'QA'];
   public userFormGroup = new FormGroup<UserForm>({
@@ -38,15 +50,12 @@ export class UserFormComponent {
     department: new FormControl(''),
     gender: new FormControl(null, [Validators.required]),
     activated: new FormControl(),
-    addresses: new FormGroup(
-      { 
-        addresses: new FormArray<FormGroup<AddressForm>>([]) 
-      }),
+    addresses: new FormControl(),
   })
 
   public saveUser(): void {
     if (this.userFormGroup.valid) {
-      this.userService.addUser(this.convertFormToObject(this.userFormGroup));
+      this.userService.submitUser(this.convertFormToObject(this.userFormGroup), this.userId);
       this.router.navigate(['list'], { relativeTo: this.route.parent })
     }
   }
@@ -66,7 +75,7 @@ export class UserFormComponent {
   get addressArray(): FormArray<FormGroup<AddressForm>> { return this.userFormGroup.controls.addresses.get('addresses') as FormArray ; }
 
   private convertFormToObject(form: FormGroup<UserForm>): User {
-    var u = new User();
+    let u = new User();
     const controls = form.controls;
     u.firstName = controls.firstName.value;
     u.lastName = controls.lastName.value;
@@ -76,10 +85,10 @@ export class UserFormComponent {
     u.department = controls.department.value;
     u.activated = controls.activated.value;
     u.gender = controls.gender.value;
-    var a = [];
-    var addressesArray = controls.addresses.get("addresses") as FormArray;
+    let a = [];
+    let addressesArray = controls.addresses.value.addresses as FormArray;
     for (let index = 0; index < addressesArray.length; index++) {
-      var item  = addressesArray.at(index).value as Address;
+      let item  = addressesArray.at(index) as unknown as Address;
       a[index] = item;
     }
     u.addresses = a;
