@@ -85,13 +85,7 @@ export class UserFormComponent implements OnInit{
     u.department = controls.department.value;
     u.activated = controls.activated.value;
     u.gender = controls.gender.value;
-    let a = [];
-    let addressesArray = controls.addresses.value.addresses as FormArray;
-    for (let index = 0; index < addressesArray.length; index++) {
-      let item  = addressesArray.at(index) as unknown as Address;
-      a[index] = item;
-    }
-    u.addresses = a;
+    u.addresses = controls.addresses.value;
     return u;
   }
 

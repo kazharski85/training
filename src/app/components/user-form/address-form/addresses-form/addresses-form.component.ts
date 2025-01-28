@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormGroup,
-  Validator, AbstractControl, ValidationErrors, ReactiveFormsModule, FormArray, FormBuilder
+  Validator, AbstractControl, ValidationErrors, ReactiveFormsModule, FormArray, FormBuilder,
+  FormControl,
+  Validators
 } from '@angular/forms';
 import { AddressForm } from '../../../../interfaces/forms';
 
@@ -33,6 +35,7 @@ export class AddressesFormComponent implements OnInit, ControlValueAccessor, Val
     addresses: this.addressesFormArray
   });
   get addresses(): FormArray<FormGroup<AddressForm>> {
+
     return this.mainForm.controls["addresses"] as FormArray;
   }
 
@@ -61,11 +64,25 @@ export class AddressesFormComponent implements OnInit, ControlValueAccessor, Val
   public onTouched: () => void = () => { };
 
   writeValue(val: any): void {
-    val && this.mainForm.setValue(val, { emitEvent: false });
+    if (val == null) {
+      return;
+    }
+    for (let index = 0; index < val.length; index++) {
+      let x = val[index];
+      this.addressesFormArray.push(new FormGroup({
+        line: new FormControl(x.line, Validators.required),
+        city: new FormControl(x.city),
+        zip: new FormControl(x.zip)
+      }));
+
+    }
+
+    this.mainForm.controls["addresses"] = this.addressesFormArray;
   }
   registerOnChange(fn: any): void {
     console.log("on change");
-    this.mainForm.valueChanges.subscribe(fn);
+    this.mainForm.valueChanges.subscribe(value => fn(value.addresses));
+    // this.mainForm.valueChanges.subscribe(fn);
   }
   registerOnTouched(fn: any): void {
     console.log("on blur");
