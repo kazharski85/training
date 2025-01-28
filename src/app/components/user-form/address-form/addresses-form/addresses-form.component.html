@@ -1,0 +1,25 @@
+<ng-container [formGroup]="mainForm">
+    <ng-container formArrayName="addresses">
+        <ng-container *ngFor="let addressFormGroup of addresses.controls; let i = index">
+            <div>Address # {{ i + 1 }}</div>
+            <div [formGroup]="addressFormGroup">
+                <div>
+                    <label for="line">Line</label>
+                    <textarea placeholder="line" formControlName="line"></textarea>
+                    <span *ngIf="addressFormGroup.get('line')?.hasError('required')" class="error-message">Field is
+                        required</span>
+                </div>    
+                <div>
+                    <label for="city">City</label>
+                    <input type="text" name="city" formControlName="city">
+                </div>
+                <div>
+                    <label for="zip">Zip</label>
+                    <input type="text" name="zip" formControlName="zip">
+                </div>
+                <button *ngIf="addresses.controls.length > 1" (click)="removeAddress(i)">Remove Address</button>
+            </div>
+        </ng-container>
+    </ng-container>
+    <button (click)="addNewAddress()">Add new Address</button>
+</ng-container>

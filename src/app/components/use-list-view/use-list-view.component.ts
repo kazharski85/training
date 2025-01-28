@@ -3,6 +3,7 @@ import { User } from '../../interfaces/user.interface';
 import { UserListMainComponent } from "../user-list-main/user-list-main.component";
 import { OrderByCreationDatePipe } from "../../pipes/order-by-creation-date.pipe";
 import { UserService } from '../../services/user.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-use-list-view-component',
@@ -13,7 +14,7 @@ import { UserService } from '../../services/user.service';
 })
 export class UseListViewComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) { }
 
   public users: User[] = [];
 
@@ -34,6 +35,10 @@ export class UseListViewComponent implements OnInit {
         ...this.users.slice(index + 1)
       ]
     }
+  }
+
+  public onEditButtonClick(index: number) {
+    this.router.navigate([`../edit-user/${index}`], { relativeTo: this.route });
   }
 
 }

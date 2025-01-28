@@ -15,6 +15,7 @@ export class UserCardComponent implements OnInit, OnDestroy {
 
   @Output() statusChangedChild: EventEmitter<number> = new EventEmitter<number>();
   @Output() deleteButtonClickChild: EventEmitter<number> = new EventEmitter<number>();
+  @Output() editButtonClickChild: EventEmitter<number> = new EventEmitter<number>();
 
   public onActivatedButtonClick(): void {
     this.statusChangedChild.emit(0);
@@ -22,6 +23,10 @@ export class UserCardComponent implements OnInit, OnDestroy {
 
   public onDeleteButtonClick(): void {
     this.deleteButtonClickChild.emit(0);
+  }
+
+  public onEditButtonClick(): void {
+    this.editButtonClickChild.emit(0);
   }
 
   ngOnInit() {

@@ -20,6 +20,7 @@ export class UserListMainComponent {
   @Input() users!: User[];
   @Output() statusChanged: EventEmitter<number> = new EventEmitter<number>();
   @Output() deleteButtonClick: EventEmitter<number> = new EventEmitter<number>();
+  @Output() editButtonClick: EventEmitter<number> = new EventEmitter<number>();
   maxAge: unknown;
 
   public onStatusChanged(index: number): void {
@@ -28,5 +29,9 @@ export class UserListMainComponent {
 
   public onDeleteButtonClick(index: number): void {
     this.deleteButtonClick.emit(index);
+  }
+
+  public onEditButtonClick(index: number): void {
+    this.editButtonClick.emit(index);
   }
 }

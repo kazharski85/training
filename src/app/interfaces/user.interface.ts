@@ -1,22 +1,26 @@
 export class User {
-  public firstName: string | null | undefined;
-  public lastName: string | null | undefined;
-  public age: number | null | undefined;
-  public gender: Gender | null | undefined;;
-  public activated!: boolean;
-  public dateOfCreation!: Date;
-  public salary!: number;
-  public company: string | null | undefined;
-  public department: string | null | undefined;
-  public email: string | null | undefined;
+  public firstName: string | undefined | null;
+  public lastName: string | undefined | null;
+  public age: number | undefined | null;
+  public gender: Gender | undefined | null;
+  public activated: boolean | undefined | null;
+  public dateOfCreation: Date | undefined | null;
+  public salary: number | undefined | null;
+  public company: string | undefined | null;
+  public department: string | undefined | null;
+  public email: string | undefined | null;
+  public addresses: Address[] | undefined | null;
 
-  public constructor(init?: Partial<User>) {
-    Object.assign(this, init);
-}
 }
 
 export enum Gender {
   M = 'Male',
   F = 'Female'
+}
+
+export class Address {
+  public line: string | undefined;
+  public city: string | undefined;
+  public zip: string | undefined;  
 }
 
