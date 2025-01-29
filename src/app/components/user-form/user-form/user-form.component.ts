@@ -35,7 +35,7 @@ export class UserFormComponent implements OnInit{
     }
 
     ngOnInit() {
-      if (this.userId != null) {
+      if (this.userId !== null) {
         this.userFormGroup.patchValue(this.userService.users[this.userId])
       }
     }
