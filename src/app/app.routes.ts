@@ -3,13 +3,12 @@ import { UserFormComponent } from './components/user-form/user-form/user-form.co
 import { UseListViewComponent } from './components/use-list-view/use-list-view.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
-import { AuthGuard } from './guards/auth.guard';
-import { UnAuthGuard } from './guards/unAuth.guard';
+import { authGuard, unAuthGuard } from './guards/app.guard';
 
 export const routes: Routes = [
-    { path: 'list', component: UseListViewComponent, canActivate: [AuthGuard] },
-    { path: 'add-new-user', component: UserFormComponent, canActivate: [AuthGuard] },
-    { path: 'edit-user/:userId', component: UserFormComponent, canActivate: [AuthGuard] },
-    { path: 'login', component: LoginComponent, canActivate: [UnAuthGuard] },
-    { path: 'registration', component: RegistrationComponent, canActivate: [UnAuthGuard] },
+    { path: 'list', component: UseListViewComponent, canActivate: [authGuard] },
+    { path: 'add-new-user', component: UserFormComponent, canActivate: [authGuard] },
+    { path: 'edit-user/:userId', component: UserFormComponent, canActivate: [authGuard] },
+    { path: 'login', component: LoginComponent, canActivate: [unAuthGuard] },
+    { path: 'registration', component: RegistrationComponent, canActivate: [unAuthGuard] },
 ];
