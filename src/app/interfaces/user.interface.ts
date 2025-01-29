@@ -21,6 +21,10 @@ export enum Gender {
 export class Address {
   public line: string | undefined;
   public city: string | undefined;
-  public zip: string | undefined;  
+  public zip: string | undefined;
+}
+export class AppUser {
+  public login: string | undefined | null;
+  public password: string | undefined | null;
 }
 

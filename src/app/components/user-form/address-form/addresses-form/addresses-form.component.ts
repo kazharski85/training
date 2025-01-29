@@ -82,7 +82,6 @@ export class AddressesFormComponent implements OnInit, ControlValueAccessor, Val
   registerOnChange(fn: any): void {
     console.log("on change");
     this.mainForm.valueChanges.subscribe(value => fn(value.addresses));
-    // this.mainForm.valueChanges.subscribe(fn);
   }
   registerOnTouched(fn: any): void {
     console.log("on blur");
