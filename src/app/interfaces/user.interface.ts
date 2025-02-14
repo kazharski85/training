@@ -14,8 +14,8 @@ export class User {
 }
 
 export enum Gender {
-  M = 'Male',
-  F = 'Female'
+  M = "male",
+  F = "female"
 }
 
 export class Address {
